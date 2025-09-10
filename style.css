@@ -1,1 +1,291 @@
-/* Add you CSS here */
+/* =========================
+   HBS-Inspired Light Theme
+   (simple, minimal CSS)
+   ========================= */
+
+/* ---- Design Tokens ---- */
+:root {
+  /* Colors */
+  --bg: #ffffff;          /* page background */
+  --panel: #ffffff;       /* cards/panels */
+  --surface: #f7f7f7;     /* subtle section bg */
+  --text: #1a1a1a;        /* primary text */
+  --muted: #5b5b5b;       /* secondary text */
+  --accent: #a51c30;      /* Harvard Crimson */
+  --accent-dark: #8e1729; /* darker crimson (hover) */
+  --border: #e5e5e5;      /* light borders */
+
+  /* Spacing & Layout */
+  --radius: 8px;
+  --shadow: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,.10);
+  --maxw: 1100px;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4rem;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+
+  --h1: clamp(2.2rem, 5vw, 3.2rem);
+  --h2: clamp(1.5rem, 3.5vw, 2.1rem);
+  --lead: clamp(1rem, 2.2vw, 1.125rem);
+}
+
+/* -----------------------
+   Base / Global
+   ----------------------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--space-2); }
+section { padding: var(--space-6) 0; }
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  color: var(--text);
+  letter-spacing: .2px;
+  line-height: 1.2;
+  margin: .4rem 0 .6rem;
+}
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); }
+p.lead { font-size: var(--lead); color: var(--muted); }
+
+/* Accessibility: skip link */
+.skip-link {
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.skip-link:focus {
+  position: fixed; left: var(--space-2); top: var(--space-2);
+  width: auto; height: auto; padding: .6rem .9rem;
+  background: var(--panel); color: var(--text);
+  border: 1px solid var(--border); border-radius: 6px; z-index: 1000;
+}
+
+/* Focus for keyboard users */
+:focus-visible {
+  outline: 3px solid rgba(165, 28, 48, .35);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* -----------------------
+   Header / Navigation
+   ----------------------- */
+header {
+  position: sticky; top: 0; z-index: 50;
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  display:flex; align-items:center; justify-content:space-between;
+  height: 72px;
+}
+.brand {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--accent);
+  padding-left: .75rem;
+  border-left: 4px solid var(--accent);
+}
+nav ul {
+  list-style: none; display:flex; gap: var(--space-3); margin:0; padding:0;
+}
+nav a {
+  color: #111;
+  padding: .5rem .25rem;
+  border-bottom: 2px solid transparent;
+  text-transform: uppercase;
+  font-size: .9rem;
+  letter-spacing: .04em;
+}
+nav a:hover, nav a:focus {
+  text-decoration: none;
+  border-bottom-color: var(--accent);
+}
+
+/* Optional “Resume” button treatment in nav */
+.btn.secondary {
+  padding: .55rem .8rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  background: transparent;
+}
+.btn.secondary:hover {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* -----------------------
+   Panels / Common Blocks
+   ----------------------- */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(var(--space-3), 3vw, var(--space-5));
+}
+.panel:hover { box-shadow: var(--shadow-hover); transition: box-shadow .2s ease; }
+
+.kicker {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .8rem;
+}
+
+/* -----------------------
+   Hero
+   ----------------------- */
+#hero { padding-top: var(--space-5); }
+.hero {
+  display:grid; gap: var(--space-5);
+  grid-template-columns: 1fr;
+  align-items: center;
+  /* HBS feel: lots of white space, crisp borders */
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.hero-visual img {
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid var(--border);
+}
+.hero-actions {
+  display:flex; gap: var(--space-2); flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+.btn {
+  display:inline-block;
+  padding:.8rem 1.1rem;
+  border-radius: 2rem;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.btn:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  text-decoration: none;
+}
+
+/* -----------------------
+   About
+   ----------------------- */
+.about-grid {
+  display:grid; gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+.quick-facts {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  box-shadow: none;
+}
+.quick-facts ul { margin: 0; padding-left: 1.1rem; }
+.quick-facts li { margin: .4rem 0; }
+
+/* -----------------------
+   Skills (tags)
+   ----------------------- */
+.chips {
+  display:flex; flex-wrap:wrap; gap:.6rem;
+  margin-top: var(--space-2);
+}
+.chip {
+  padding:.45rem .75rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .92rem;
+  color: var(--text);
+}
+.chip::before {
+  content: "•";
+  color: var(--accent);
+  margin-right: .45rem;
+  position: relative; top: -1px;
+}
+
+/* -----------------------
+   Projects
+   ----------------------- */
+.projects-grid {
+  display:grid; gap: var(--space-3);
+  grid-template-columns: 1fr;
+}
+.card {
+  display:flex; flex-direction: column; gap: var(--space-2);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  box-shadow: var(--shadow);
+}
+.card img {
+  border-radius: 6px;
+  border:1px solid var(--border);
+}
+.card h3 { margin:.2rem 0; font-family: var(--font-serif); }
+.card .meta { color: var(--muted); font-size: .95rem; }
+.tag {
+  display:inline-block; font-size:.85rem; padding:.26rem .55rem;
+  background: #fff; border:1px solid var(--border); border-radius: 999px;
+  margin-right: .35rem;
+}
+
+/* -----------------------
+   Contact
+   ----------------------- */
+.contact-list {
+  display:grid; gap: .9rem;
+  grid-template-columns: 1fr;
+  margin-top: var(--space-2);
+}
+.contact-item {
+  padding: .95rem 1rem;
+  border:1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* -----------------------
+   Footer
+   ----------------------- */
+footer {
+  border-top:1px solid var(--border);
+  padding: var(--space-4) 0;
+  color: var(--muted);
+  text-align: center;
+  font-size: .95rem;
+}
+
+/* -----------------------
+   Responsive
+   ----------------------- */
+@media (min-width: 760px) {
+  .hero { grid-template-columns: 1.1fr .9fr; }
+  .about-grid { grid-template-columns: .9fr 1.1fr; }
+  .projects-grid { grid-template-columns: repeat(3, 1fr); }
+}
